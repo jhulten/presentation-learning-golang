@@ -1,394 +1,788 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+	<title>Learning to Write Go</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+	<meta name="description" content="Learning to Write Golang without Repeating My Mistakes">
+	<meta name="author" content="Jeffrey Hulten">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/default.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
+	<style>
+	.goplay { background-color: rgb(255, 255, 255); width: 900px; height: 550px; max-height: none; max-width: none; }
+	.reveal dt { font-family:Inconsolata,Monospace; font-weight:900; text-align: left; float: left;}
+	.reveal dd { font-weight:normal; text-align: right;}
+	.reveal code { font-family: Courier,Monospace; text-transform:none; letter-spacing: 0;}
+	.reveal blockquote { box-shadow:none; }
+	.reveal pre { box-shadow:none; }
+	.reveal section img { border:0px; box-shadow:none; }
+	</style>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+	<script>
+	if( window.location.search.match( /print-pdf/gi ) ) {
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = 'css/print/pdf.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	}
+	</script>
 
-	<body>
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
 
-		<div class="reveal">
+<body>
+	<div class="reveal">
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<h1>Learning to Write Go</h1>
+				<h2>Jeffrey Hulten</h2>
+<img src="whitepages.png"/>
+			</section>
+			<section>
+				<h2>Who Am I</h2>
+				<p style="font-weight: bold;">
+					Jeffrey Hulten
+				</p>
+				<p>Software Engineer</p>
+				<p>Whitepages, Inc.
+				</p>
+			</section>
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+			<section>
+				<h2>What I'm Going to Cover</h2>
+				<p>Assuming you know something like Python, Java, Ruby...</p>
+				<ol>
+					<li>Using Packages</li>
+					<li>Types, Structs, and Interfaces</li>
+					<li>The Goroutine</li>
+					<li>Channels</li>
+				</ol>
+			</section>
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>
-							Slides can be nested inside of other slides,
-							try pressing <a href="#" class="navigate-down">down</a>.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+			<section>
+				<h2>Top Three Hints</h2>
+				<ol>
+					<li class="fragment" data-fragment-index="0">Google for "golang", not "go".<br>
+						<a href="http://lmgtfy.com/?q=golang">http://lmgtfy.com/?q=golang<br>
 						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Press down or up to navigate.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>Cornify</p>
-						<a class="test" href="http://cornify.com">
-							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 3</h2>
-						<p>That's it, time to go back up.</p>
-						<a href="#/2" class="image">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
+					</li>
+					<li class="fragment" data-fragment-index="1">Try the standard library first.<br>Especially "<a href="http://golang.org/pkg/net/http/">net/http</a>"</li>
+					<li class="fragment" data-fragment-index="2">Learn to love channels</li>
+				</ol>
+			</section>
+
+			<section>
+				<h2>The Artifact is the Thing</h2>
+				<img src="richhickey.jpeg"/>
+				<blockquote cite="http://www.infoq.com/presentations/Simple-Made-Easy">
+					We program with <b>constructs</b>[...]<br/>
+					but we are in a business of <b>artifacts</b>.
+				</blockquote>
+			</section>
+
+			<section>
+				<section>
+					<h2>Common Toolchain, Common Practices</h2>
+					<div>
+						<ul>
+							<li><code>go&nbsp;clean</code></li>
+							<li><code>go&nbsp;get</code></li>
+							<li><code>go&nbsp;fmt</code></li>
+							<li><code>go&nbsp;test</code></li>
+							<li><code>go&nbsp;build</code></li>
+						</ul>
+					</div>
 				</section>
 
 				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
-
-				<section>
-					<h2>Works in Mobile Safari</h2>
-					<p>
-						Try it out! You can swipe through the slides and pinch your way to the overview.
-					</p>
-				</section>
-
-				<section>
-					<h2>Marvelous Unordered List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
-
-						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-
-						```
-						<section data-markdown>
-						  ## Markdown support
-
-						  For those of you who like that sort of thing.
-						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
-
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=cube#/transitions">Cube</a> -
-						<a href="?transition=page#/transitions">Page</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a> -
-						<a href="?transition=linear#/transitions">Linear</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?#/transitions">Default</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?#/themes">Default</a> -
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> <br>
-						<a href="?theme=moon#/themes">Moon</a> -
-						<a href="?theme=solarized#/themes">Solarized</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>Custom Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
+					<h2><code>go clean</code></h2>
+					<pre><code data-trim>
+go clean [-i] [-r] [-n] [-x] [packages]
 					</code></pre>
+					<dl>
+						<dt>_obj/</dt>            <dd>old object directory, left from Makefiles</dd>
+						<dt>_test/</dt>           <dd>old test directory, left from Makefiles</dd>
+						<dt>_testmain.go</dt>     <dd>old gotest file, left from Makefiles</dd>
+						<dt>test.out</dt>         <dd>old test log, left from Makefiles</dd>
+						<dt>build.out</dt>        <dd>old test log, left from Makefiles</dd>
+						<dt>*.[568ao]</dt>        <dd>object files, left from Makefiles</dd>
+
+						<dt>DIR(.exe)</dt>        <dd>from go build</dd>
+						<dt>DIR.test(.exe)</dt>   <dd>from go test -c</dd>
+						<dt>MAINFILE(.exe)</dt>   <dd>from go build MAINFILE.go</dd>
+						<dt>*.so</dt>             <dd>from SWIG</dd>
+					</dl>
+				</section>
+
+<section>
+	<h2><code>go get</code></h2>
+	<ul>
+		<li>Downloads and installs the packages named by the import paths, along with their dependencies.</li>
+	</ul>
+	<pre><code data-trim>
+go get [-d] [-fix] [-t] [-u] [build flags] [packages]
+	</code></pre>
+</section>
+
+
+<section>
+	<h2><code>go fmt</code></h2>
+	<ul>
+		<li>Reformats the packages listed to the golang standard.</li>
+		<li>It prints the names of the files that are modified.</li>
+		<li>Many editors run <code>go fmt</code> on save.</li>
+	</ul>
+	<pre><code data-trim>
+go fmt [-n] [-x] [packages]
+	</code></pre>
+</section>
+
+
+<section>
+	<h2><code>go test</code></h2>
+	<ul>
+<li>Recompiles each package along with any files with names matching "*_test.go".</li>
+<li>Can contain test functions, benchmark functions, and example functions.</li>
+<li> It prints a summary of the test results in the format:
+<pre><code data-trim>
+ok   archive/tar   0.011s
+FAIL archive/zip   0.022s
+ok   compress/gzip 0.033s
+...
+</pre></code></li>
+</ul>
+	<pre><code data-trim>
+go test [-c] [-i] [build/test flags] [packages] [flags for test binary]
+go test ./...
+go test github.com/goraft/raft
+	</code></pre>
+</section>
+
+
+<section>
+	<h2><code>go build</code></h2>
+	<ul>
+		<li>Compiles the packages named by the import paths, along with their dependencies.</li>
+		<li>Does not install the results.</li>
+	</ul>
+	<pre><code data-trim>
+go build [-o output] [build flags] [packages]
+go build ./...
+	</code></pre>
+</section>
+
+<section>
+	<h2><code>go install</code></h2>
+	<ul>
+		<li>Compiles and installs the packages named by the import paths, along with their dependencies</li>
+	</ul>
+	<pre><code data-trim>
+go install [build flags] [packages]
+go install github.com/crosbymichael/skydock
+	</code></pre>
+</section>
+
+
+			</section>
+
+			<section>
+				<h2>
+					<span>Hello, Playground!</span>
+				</h2>
+
+				<p>
+					<a href="http://play.golang.org/">http://play.golang.org/</a>
+				</p>
+
+				<iframe src="http://play.golang.org/" class="goplay">
+				</iframe>
+
+			</section>
+
+
+			<section>
+				<pre><code data-trim>
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, playground")
+}
+				</code></pre>
+				<section style="top:50px;">
+					<h3>
+						Declare the package for this file
+					</h3>
+				</section>
+
+				<section style="top:50px;">
+					<h3>
+						Import the <code>fmt</code> package (stdlib)
+					</h3>
+				</section>
+
+				<section style="top:50px;">
+					<h3>
+						Declares the <code>main</code> function to execute
+					</h3>
+				</section>
+
+				<section style="top:50px;">
+					<h3>
+						Calls <code>Println</code> from the <code>fmt</code> package
+					</h3>
+				</section>
+			</section>
+
+
+			<section>
+				<section>
+					<h2>Using Packages</h2>
 				</section>
 
 				<section>
-					<section data-background="#007777">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Repeated Image Backgrounds</h2>
-						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-				</section>
-
-				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
-					<h2>Background Transitions</h2>
-					<p>
-						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
-					</p>
-				</section>
-
-				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
-					<h2>Background Transition Override</h2>
-					<p>
-						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
-					</p>
+					<h2>Standard Packages</h2>
+					<iframe src="http://play.golang.org/p/ybBDpLBnLd" class="goplay"></iframe>
 				</section>
 
 				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+					<h2>External Packages</h2>
+					<pre>
+						<code data-trim>
+package main
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+import (
+  "fmt"
+  "code.google.com/p/gcfg"
+)
 
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
+type Config struct {
+  Section struct {
+    Name string
+    Flag bool
   }
 }
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+
+func main() {
+  var cfg Config
+  err := gcfg.ReadFileInto(&cfg, "myconfig.gcfg")
+
+  fmt.Println("The name is", cfg.Name)
+}
+						</code>
+					</pre>
 				</section>
 
 				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<section id="fragments">
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
-
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-current-blue">highlight-current-blue</p>
-					</section>
-				</section>
-
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-					<script>
-						document.getElementById('slideshare').attributeName = 'allowfullscreen';
-					</script>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
-						during a presentation.
-					</p>
-				</section>
-
-				<section>
-					<h2>Stellar Links</h2>
+					<h2>Packaging Gimmies and Gotchas</h2>
 					<ul>
-						<li><a href="http://slid.es">Try the online editor</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
+						<li>Does not pin versions</li>
+						<li>Vendoring is recommended</li>
+						<li>Binaries are statically linked</li>
+						<li>NPM/Bundler is insufficent (Go is Different)</li>
 					</ul>
+					<p><a href="http://nathany.com/go-packages/">http://nathany.com/go-packages/</a>
 				</section>
 
 				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
-				</section>
+					<h2>Private vs Public</h2>
+					<pre><code data-trim>
+package mypkg
 
-			</div>
+func thisIsPrivate() {}
+func ThisIsPublic() {}
+					</pre></code>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Types</h2>
+					<p>Golang is statically typed</p>
+					<pre>
+						<code data-trim>
+var I int
+var myString string = "my string"
+fileReader, err := os.Open("/tmp/filename")
+</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Structs</h2>
+<div>
+
+</div>
+<pre><code data-trim>
+type TinyStruct struct {
+	IsTiny bool
+}
+
+type MyStruct struct {
+	TinyStruct
+	A string
+	b uint32
+	Nested struct {
+		C io.Reader
+	}
+}
+
+type OtherStruct struct {
+	MStruct MyStruct
+	OtherField string
+}
+</code></pre>
+				</section>
+				<section>
+					<h2>Interfaces</h2>
+<div>
+
+</div>
+<pre><code data-trim>
+type Thinger interface {
+	DoThing() error
+}
+
+func (ms MyStruct)DoThing() error {
+	return nil
+}
+
+func (os *OtherStruct)DoThing() error {
+	return nil
+}
+</code></pre>
+				</section>
+<section>
+	<h2>Empty Interface is an Any Type</h2>
+	<iframe src="http://play.golang.org/p/_qxA85gNjW" class="goplay"></iframe>
+</section>
+
+				<section>
+					<h2>Functions</h2>
+<pre>
+<code data-trim>
+func FunctionName(argument string, arg1, arg2 int63) {...}
+func FunctionName(values ...int) error {...}
+func FunctionName()(namedReturn int) {...}
+var f := func() {...}
+</code>
+</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2><code>RandReader</code> Example</h2>
+					<div>
+						Create a type that meets the io.Reader interface
+						and returns random bytes.
+					</div>
+				</section>
+				<section>
+					<h2><code>io.Reader</code> Interface</h2>
+					<pre>
+						<code data-trim>
+type Reader interface {
+        Read(p []byte) (n int, err error)
+}
+					</code>
+					</pre>
+					<cite><a href="http://golang.org/pkg/io/#Reader">http://golang.org/pkg/io/#Reader</a></cite>
+				</section>
+				<section>
+					<h2><code>RandReader</code> Type</h2>
+					<div>
+						Struct with no public elements
+					</div>
+					<pre>
+						<code data-trim>
+type RandReader struct {}
+					</code>
+					</pre>
+				</section>
+<section>
+<h2><code>RandReader</code> Type</h2>
+<div>
+	Holds internal state
+</div>
+	<pre>
+		<code data-trim>
+import "math/rand"
+
+type RandReader struct {
+	r rand.Rand
+}
+	</code>
+	</pre>
+</section>
+
+<section>
+	<h2><code>NewRandReader()</code> Function</h2>
+	<div>
+		Creates a RandReader and initializes it
+	</div>
+	<pre>
+<code data-trim>
+func NewRandReader() *RandReader {
+	source := rand.NewSource(time.Now().UnixNano())
+	return &RandReader{rand.New(source)}
+}
+</code>
+	</pre>
+</section>
+<section>
+<h2>Attach the <code>Read</code> Function</h2>
+<div>
+	Supplying a <code>Read([]byte) int, error</code> function makes it match the <code>io.Reader</code> interface
+</div>
+<pre><code data-trim>
+import "encoding/binary"
+
+// Contains a bug that does not fill the provided array
+func (r RandReader)Read(p []byte) (n int, err error) {
+	if len(p) < 5 {
+		return nil, errors.New(“byte array too small”)
+	}
+	val := r.Uint32().(uint64)
+	n := binary.PutUvarint(p, val)
+}
+</code></pre>
+</section>
+			</section>
+
+<section>
+	<section>
+		<h2>Goroutines</h2>
+	</section>
+	<section>
+		<h2>Sidenote: Concurrency vs Parallelism</h2>
+		<ul>
+			<li>
+			Concurrency: Composition of independently executing processes
+			</li>
+			<li>
+			Parallelism: Simultaneous execution of optionally related computations.
+			</li>
+		</ul>
+</section>
+<section>
+	<h2>Sidenote: Concurrency vs Parallelism</h2>
+
+		<div>
+		<blockquote cite="http://blog.golang.org/concurrency-is-not-parallelism">
+			Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.
+		</blockquote>
+		<cite>-- Andrew Gerrand</cite>
+		</div>
+</section>
+<section>
+	<h2>Sidenote: Concurrency vs Parallelism</h2>
+		<p> More Information: Rob Pike on Concurrency vs Parallelism<br/>
+		<a href="http://vimeo.com/49718712">http://vimeo.com/49718712</a></p>
+	</section>
+
+	<section>
+		<h2>How to Create a Goroutine</h2>
+		<iframe src="http://play.golang.org/p/g2Z-BR6838" class="goplay"></iframe>
+	</section>
+
+	<section>
+		<h2>Call a standard function</h2>
+		<pre>
+			<code>go time.Sleep(100 * time.Hours())</code>
+		</pre>
+	</section>
+
+	<section>
+		<h2>Call a function variable</h2>
+<pre><code data-trim>
+f := func() {time.Sleep(100 * time.Hours())}
+go f()
+</code></pre>
+	</section>
+
+<section>
+	<h2>Call an anonymous function</h2>
+<pre>
+	<code data-trim>
+go func() {time.Sleep(100 * time.Hours())}()
+</code>
+</pre>
+</section>
+
+	<section>
+		<h2>Goroutine Gotchas</h2>
+		<ul>
+			<li>Goroutines do not block the main thread from exiting.</li>
+			<li>You must manage concurrent access. See <a href="http://golang.org/pkg/sync/#Mutex"><code>sync.Mutex</code></a></li>
+			<li>There is no one to return a value to. (Use channels)</li>
+		</ul>
+	</section>
+
+</section>
+
+<section>
+	<section>
+		<h2>Channels</h2>
+		<ul>
+			<li>A type.</li>
+			<li>A strongly typed, bounded queue for passing data between goroutines.</li>
+			<li>Argument types can include direction (inbound vs. outbound).</li>
+		</ul>
+		<cite>http://blog.golang.org/pipelines</cite>
+	</section>
+	<section>
+		<h2>Make a Channel</h2>
+<pre><code data-trim>
+var ch chan int
+ch = make(chan int)
+</code></pre>
+	</section>
+	<section>
+<h2>Size a Channel</h2>
+<pre><code data-trim>
+ch := make(chan int, 10)
+</code></pre>
+</section>
+
+<section>
+	<h2>Send To a Channel</h2>
+<pre><code data-trim>
+ch := make(chan int, 1)
+ch <- 1
+ch <- 2
+</code></pre>
+</section>
+
+<section>
+	<h2>Recieve From a Channel</h2>
+<pre><code data-trim>
+c := <-ch
+</code></pre>
+</section>
+
+<section>
+	<h2>Recieve From a Channel with <code>range</code></h2>
+<pre><code data-trim>
+ch := make(chan int, 10)
+ch <- 1
+ch <- 2
+ch <- 3
+ch <- 4
+for n := range ch {
+	fmt.Println(n * n)
+}
+</code></pre>
+</section>
+
+<section>
+	<h2>Recieve From a Channel with <code>select</code></h2>
+<pre><code data-trim>
+ch := make(chan int, 10)
+done := make(chan bool)
+ch <- 1
+ch <- 2
+done <- true
+ch <- 4
+
+select {
+	case <-done:
+		return
+	case n <- ch:
+		fmt.Println(n * n)
+}
+</code></pre>
+</section>
+
+
+	<section>
+		<h2>Return a Channel</h2>
+<pre><code data-trim>
+func generate(nums ...int) <-chan int {
+	out := make(chan int)
+	go func() {
+		for _, n := range nums {
+			out <- n
+		}
+		close(out)
+	}()
+	return out
+}
+</code></pre>
+	</section>
+<section>
+	<h2>Pass a Channel</h2>
+<pre><code data-trim>
+func sq(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        for n := range in {
+            out <- n * n
+        }
+        close(out)
+    }()
+    return out
+}
+</code></pre>
+	</section>
+<section>
+	<h2>A Pipeline of Channels</h2>
+<pre><code data-trim>
+func square(in <-chan int) <-chan int {}
+func generate(nums ...int) <-chan int {}
+
+func main() {
+	for n := range square( square( generate( 2, 3, 4 ))) {
+		fmt.Println(n)
+	}
+}
+</code></pre>
+
+</section>
+</section>
+
+<section>
+	<section>
+		<h2>Extra! HTTP Service</h2>
+	</section>
+	<section>
+		<h2>The Key is an Interface</h2>
+		<pre><code data-trim>
+type Handler interface {
+	ServeHTTP(ResponseWriter, *Request)
+}</code></pre>
+	</section>
+	<section>
+		<h2>Simplest Server</h2>
+<pre><code data-trim>
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
+func main() {
+    http.ListenAndServe(":8080", handler)
+}
+</code></pre>
+	</section>
+
+	<section>
+		<h2>Introducing ServeMux</h2>
+<pre><code data-trim>
+package main
+
+import (
+		"fmt"
+		"net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
+func main() {
+		mux := http.NewServeMux()
+		mux.HandleFunc("/hi",handler)
+		mux.Handle("",http.NotFoundHandler())
+		http.ListenAndServe(":8080", mux)
+}
+</code></pre>
+	</section>
+
+</section>
+
+<section>
+	<h2>Resources</h2>
+	<ul>
+		<li>http://golang.org/doc/effective_go.html</li>
+		<li>http://golang.org/ref/spec</li>
+		<li>http://blog.golang.org/</li>
+		<li>http://www.reddit.com/r/golang</li>
+		<li>http://golang.org/doc/faq</li>
+		<li>https://groups.google.com/forum/#!forum/Golang-nuts</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Questions?</h2>
+	<p>jhulten@whitepages.com</p>
+	<p>twitter: @jhulten</p>
+	<p>Find me in the Exhibition Hall</p>
+</section>
+
+<section>
+	<h2>We are hiring!</h2>
+	<p>
+<img src="whitepages.png"/>
+</p><p>
+	<a href="http://jobvite.com/m?37X1ngwd">http://jobvite.com/m?37X1ngwd</a>
+</p>
+<p>
+<img src="qrcode.png"/>
+</p>
+</section>
 
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+	</div>
 
-		<script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.min.js"></script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+	<script>
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+		width: 960,
+    height: 700,
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+		theme: Reveal.getQueryHash().theme || 'solarized', // available themes are in /css/theme
+		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-		</script>
+		// Parallax scrolling
+		// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+		// parallaxBackgroundSize: '2100px 900px',
 
-	</body>
+		// Optional libraries used to extend on reveal.js
+		dependencies: [
+		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+		]
+	});
+
+	</script>
+
+</body>
 </html>
