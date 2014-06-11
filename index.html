@@ -12,7 +12,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
 
 	<link rel="stylesheet" href="css/reveal.min.css">
 	<link rel="stylesheet" href="css/theme/default.css" id="theme">
@@ -24,10 +24,11 @@
 	.goplay { background-color: rgb(255, 255, 255); width: 900px; height: 550px; max-height: none; max-width: none; }
 	.reveal dt { font-family:Inconsolata,Monospace; font-weight:900; text-align: left; float: left;}
 	.reveal dd { font-weight:normal; text-align: right;}
-	.reveal code { font-family: Courier,Monospace; text-transform:none; letter-spacing: 0;}
+	.reveal code { font-family: Courier,Monospace; text-transform:none; letter-spacing: 0; }
 	.reveal blockquote { box-shadow:none; }
 	.reveal pre { box-shadow:none; }
-	.reveal section img { border:0px; box-shadow:none; }
+	.reveal pre code { max-height: 750px; font-size: 36px; line-height: normal; }
+	.reveal section img { border:0px; box-shadow:none; line-height: 120%; }
 	</style>
 
 	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -52,8 +53,8 @@
 		<div class="slides">
 			<section>
 				<h1>Learning to Write Go</h1>
+				<img src="whitepages.png"/>
 				<h2>Jeffrey Hulten</h2>
-<img src="whitepages.png"/>
 			</section>
 			<section>
 				<h2>Who Am I</h2>
@@ -77,131 +78,25 @@
 			</section>
 
 			<section>
-				<h2>Top Three Hints</h2>
-				<ol>
-					<li class="fragment" data-fragment-index="0">Google for "golang", not "go".<br>
-						<a href="http://lmgtfy.com/?q=golang">http://lmgtfy.com/?q=golang<br>
-						</a>
-					</li>
-					<li class="fragment" data-fragment-index="1">Try the standard library first.<br>Especially "<a href="http://golang.org/pkg/net/http/">net/http</a>"</li>
-					<li class="fragment" data-fragment-index="2">Learn to love channels</li>
-				</ol>
+				<h2>Not For You? Parting Hint...</h2>
+				<p>Google for "golang", not "go".<br>
+					<a href="http://lmgtfy.com/?q=golang">http://lmgtfy.com/?q=golang</a>
+				</p>
 			</section>
 
 			<section>
-				<h2>The Artifact is the Thing</h2>
-				<img src="richhickey.jpeg"/>
+				<h2>Simplicity</h2>
+				<p>
+					Rich Hickey - Creator of Clojure
+				</p>
+				<a href="http://www.infoq.com/presentations/Simple-Made-Easy">http://www.infoq.com/presentations/Simple-Made-Easy</a><br/>
+				<img src="richhickey.jpeg"/><br/>
 				<blockquote cite="http://www.infoq.com/presentations/Simple-Made-Easy">
 					We program with <b>constructs</b>[...]<br/>
 					but we are in a business of <b>artifacts</b>.
 				</blockquote>
+				<p>Go is a language for concurrency</p>
 			</section>
-
-			<section>
-				<section>
-					<h2>Common Toolchain, Common Practices</h2>
-					<div>
-						<ul>
-							<li><code>go&nbsp;clean</code></li>
-							<li><code>go&nbsp;get</code></li>
-							<li><code>go&nbsp;fmt</code></li>
-							<li><code>go&nbsp;test</code></li>
-							<li><code>go&nbsp;build</code></li>
-						</ul>
-					</div>
-				</section>
-
-				<section>
-					<h2><code>go clean</code></h2>
-					<pre><code data-trim>
-go clean [-i] [-r] [-n] [-x] [packages]
-					</code></pre>
-					<dl>
-						<dt>_obj/</dt>            <dd>old object directory, left from Makefiles</dd>
-						<dt>_test/</dt>           <dd>old test directory, left from Makefiles</dd>
-						<dt>_testmain.go</dt>     <dd>old gotest file, left from Makefiles</dd>
-						<dt>test.out</dt>         <dd>old test log, left from Makefiles</dd>
-						<dt>build.out</dt>        <dd>old test log, left from Makefiles</dd>
-						<dt>*.[568ao]</dt>        <dd>object files, left from Makefiles</dd>
-
-						<dt>DIR(.exe)</dt>        <dd>from go build</dd>
-						<dt>DIR.test(.exe)</dt>   <dd>from go test -c</dd>
-						<dt>MAINFILE(.exe)</dt>   <dd>from go build MAINFILE.go</dd>
-						<dt>*.so</dt>             <dd>from SWIG</dd>
-					</dl>
-				</section>
-
-<section>
-	<h2><code>go get</code></h2>
-	<ul>
-		<li>Downloads and installs the packages named by the import paths, along with their dependencies.</li>
-	</ul>
-	<pre><code data-trim>
-go get [-d] [-fix] [-t] [-u] [build flags] [packages]
-	</code></pre>
-</section>
-
-
-<section>
-	<h2><code>go fmt</code></h2>
-	<ul>
-		<li>Reformats the packages listed to the golang standard.</li>
-		<li>It prints the names of the files that are modified.</li>
-		<li>Many editors run <code>go fmt</code> on save.</li>
-	</ul>
-	<pre><code data-trim>
-go fmt [-n] [-x] [packages]
-	</code></pre>
-</section>
-
-
-<section>
-	<h2><code>go test</code></h2>
-	<ul>
-<li>Recompiles each package along with any files with names matching "*_test.go".</li>
-<li>Can contain test functions, benchmark functions, and example functions.</li>
-<li> It prints a summary of the test results in the format:
-<pre><code data-trim>
-ok   archive/tar   0.011s
-FAIL archive/zip   0.022s
-ok   compress/gzip 0.033s
-...
-</pre></code></li>
-</ul>
-	<pre><code data-trim>
-go test [-c] [-i] [build/test flags] [packages] [flags for test binary]
-go test ./...
-go test github.com/goraft/raft
-	</code></pre>
-</section>
-
-
-<section>
-	<h2><code>go build</code></h2>
-	<ul>
-		<li>Compiles the packages named by the import paths, along with their dependencies.</li>
-		<li>Does not install the results.</li>
-	</ul>
-	<pre><code data-trim>
-go build [-o output] [build flags] [packages]
-go build ./...
-	</code></pre>
-</section>
-
-<section>
-	<h2><code>go install</code></h2>
-	<ul>
-		<li>Compiles and installs the packages named by the import paths, along with their dependencies</li>
-	</ul>
-	<pre><code data-trim>
-go install [build flags] [packages]
-go install github.com/crosbymichael/skydock
-	</code></pre>
-</section>
-
-
-			</section>
-
 			<section>
 				<h2>
 					<span>Hello, Playground!</span>
@@ -211,14 +106,11 @@ go install github.com/crosbymichael/skydock
 					<a href="http://play.golang.org/">http://play.golang.org/</a>
 				</p>
 
-				<iframe src="http://play.golang.org/" class="goplay">
-				</iframe>
-
+				<iframe src="http://play.golang.org/" class="goplay"></iframe>
 			</section>
 
-
 			<section>
-				<pre><code data-trim>
+				<pre><code class="go" data-trim>
 package main
 
 import "fmt"
@@ -266,7 +158,7 @@ func main() {
 				<section>
 					<h2>External Packages</h2>
 					<pre>
-						<code data-trim>
+						<code class="go" data-trim>
 package main
 
 import (
@@ -304,7 +196,7 @@ func main() {
 
 				<section>
 					<h2>Private vs Public</h2>
-					<pre><code data-trim>
+					<pre><code class="go" data-trim>
 package mypkg
 
 func thisIsPrivate() {}
@@ -318,23 +210,31 @@ func ThisIsPublic() {}
 					<h2>Types</h2>
 					<p>Golang is statically typed</p>
 					<pre>
-						<code data-trim>
+						<code class="go" data-trim>
 var I int
 var myString string = "my string"
 fileReader, err := os.Open("/tmp/filename")
 </code>
+<a href="http://golang.org/ref/spec#Variable_declarations">http://golang.org/ref/spec#Variable_declarations</a>
 					</pre>
 				</section>
-				<section>
-					<h2>Structs</h2>
-<div>
-
-</div>
-<pre><code data-trim>
+<section>
+<h2>Structs</h2>
+<pre><code class="go" data-trim>
 type TinyStruct struct {
 	IsTiny bool
 }
 
+t1 := TinyStruct{}
+t2 := TinyStruct{true}
+t3 := TinyStruct{IsTiny: false}
+t3.IsTiny
+</code></pre>
+<a href="http://golang.org/ref/spec#Struct_types">http://golang.org/ref/spec#Struct_types</a>
+</section>
+<section>
+<h2>Structs</h2>
+<pre><code class="go" data-trim>
 type MyStruct struct {
 	TinyStruct
 	A string
@@ -344,18 +244,45 @@ type MyStruct struct {
 	}
 }
 
+var ms MyStruct
+ms = MyStruct{}
+ms.A = "one"
+ms.IsTiny = true
+
+if ms.TinyStruct.IsTiny {...}
+</code></pre>
+</section>
+<section>
+<h2>Structs</h2>
+<pre><code class="go" data-trim>
 type OtherStruct struct {
 	MStruct MyStruct
 	OtherField string
 }
+
+os := OtherStruct{MStruct : MyStruct{IsTiny: false}, OtherField : "thing"}
 </code></pre>
-				</section>
-				<section>
-					<h2>Interfaces</h2>
+</section>
+
+<section>
+	<h2>Functions</h2>
+<pre>
+<code class="go" data-trim>
+func FunctionName(argument string, arg1, arg2 int64) {...}
+func FunctionName(values ...int) error {...}
+func FunctionName()(namedReturn int) {...}
+var f := func() {...}
+</code>
+</pre>
+<a href="http://golang.org/ref/spec#Function_declarations">http://golang.org/ref/spec#Function_declarations</a>
+</section>
+
+<section>
+<h2>Interfaces and Methods</h2>
 <div>
 
 </div>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 type Thinger interface {
 	DoThing() error
 }
@@ -367,24 +294,19 @@ func (ms MyStruct)DoThing() error {
 func (os *OtherStruct)DoThing() error {
 	return nil
 }
+
+func ProcessThinger(t Thinger) error {
+	return t.DoThing()
+}
 </code></pre>
+<a href="http://golang.org/ref/spec#Interface_types">http://golang.org/ref/spec#Interface_types</a><br/>
+<a href="http://golang.org/ref/spec#Method_declarations">http://golang.org/ref/spec#Method_declarations</a>
 				</section>
 <section>
 	<h2>Empty Interface is an Any Type</h2>
 	<iframe src="http://play.golang.org/p/_qxA85gNjW" class="goplay"></iframe>
 </section>
 
-				<section>
-					<h2>Functions</h2>
-<pre>
-<code data-trim>
-func FunctionName(argument string, arg1, arg2 int63) {...}
-func FunctionName(values ...int) error {...}
-func FunctionName()(namedReturn int) {...}
-var f := func() {...}
-</code>
-</pre>
-				</section>
 			</section>
 			<section>
 				<section>
@@ -411,7 +333,7 @@ type Reader interface {
 						Struct with no public elements
 					</div>
 					<pre>
-						<code data-trim>
+						<code class="go" data-trim>
 type RandReader struct {}
 					</code>
 					</pre>
@@ -422,7 +344,7 @@ type RandReader struct {}
 	Holds internal state
 </div>
 	<pre>
-		<code data-trim>
+		<code class="go" data-trim>
 import "math/rand"
 
 type RandReader struct {
@@ -438,7 +360,7 @@ type RandReader struct {
 		Creates a RandReader and initializes it
 	</div>
 	<pre>
-<code data-trim>
+<code class="go" data-trim>
 func NewRandReader() *RandReader {
 	source := rand.NewSource(time.Now().UnixNano())
 	return &RandReader{rand.New(source)}
@@ -451,7 +373,7 @@ func NewRandReader() *RandReader {
 <div>
 	Supplying a <code>Read([]byte) int, error</code> function makes it match the <code>io.Reader</code> interface
 </div>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 import "encoding/binary"
 
 // Contains a bug that does not fill the provided array
@@ -470,17 +392,6 @@ func (r RandReader)Read(p []byte) (n int, err error) {
 	<section>
 		<h2>Goroutines</h2>
 	</section>
-	<section>
-		<h2>Sidenote: Concurrency vs Parallelism</h2>
-		<ul>
-			<li>
-			Concurrency: Composition of independently executing processes
-			</li>
-			<li>
-			Parallelism: Simultaneous execution of optionally related computations.
-			</li>
-		</ul>
-</section>
 <section>
 	<h2>Sidenote: Concurrency vs Parallelism</h2>
 
@@ -490,11 +401,11 @@ func (r RandReader)Read(p []byte) (n int, err error) {
 		</blockquote>
 		<cite>-- Andrew Gerrand</cite>
 		</div>
-</section>
-<section>
-	<h2>Sidenote: Concurrency vs Parallelism</h2>
 		<p> More Information: Rob Pike on Concurrency vs Parallelism<br/>
 		<a href="http://vimeo.com/49718712">http://vimeo.com/49718712</a></p>
+		<aside class="notes">
+			Pike is one of the three co-creators of GoLang
+		</aside>
 	</section>
 
 	<section>
@@ -511,7 +422,7 @@ func (r RandReader)Read(p []byte) (n int, err error) {
 
 	<section>
 		<h2>Call a function variable</h2>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 f := func() {time.Sleep(100 * time.Hours())}
 go f()
 </code></pre>
@@ -520,7 +431,7 @@ go f()
 <section>
 	<h2>Call an anonymous function</h2>
 <pre>
-	<code data-trim>
+	<code class="go" data-trim>
 go func() {time.Sleep(100 * time.Hours())}()
 </code>
 </pre>
@@ -531,7 +442,7 @@ go func() {time.Sleep(100 * time.Hours())}()
 		<ul>
 			<li>Goroutines do not block the main thread from exiting.</li>
 			<li>You must manage concurrent access. See <a href="http://golang.org/pkg/sync/#Mutex"><code>sync.Mutex</code></a></li>
-			<li>There is no one to return a value to. (Use channels)</li>
+			<li>There is no one to return a value to. (Use channels.)</li>
 		</ul>
 	</section>
 
@@ -547,23 +458,25 @@ go func() {time.Sleep(100 * time.Hours())}()
 		</ul>
 		<cite>http://blog.golang.org/pipelines</cite>
 	</section>
-	<section>
-		<h2>Make a Channel</h2>
-<pre><code data-trim>
+
+<section>
+<h2>Make a Channel</h2>
+<pre><code class="go" data-trim>
 var ch chan int
 ch = make(chan int)
 </code></pre>
-	</section>
-	<section>
+</section>
+
+<section>
 <h2>Size a Channel</h2>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 ch := make(chan int, 10)
 </code></pre>
 </section>
 
 <section>
-	<h2>Send To a Channel</h2>
-<pre><code data-trim>
+<h2>Send To a Channel</h2>
+<pre><code class="go" data-trim>
 ch := make(chan int, 1)
 ch <- 1
 ch <- 2
@@ -571,15 +484,15 @@ ch <- 2
 </section>
 
 <section>
-	<h2>Recieve From a Channel</h2>
-<pre><code data-trim>
+<h2>Recieve From a Channel</h2>
+<pre><code class="go" data-trim>
 c := <-ch
 </code></pre>
 </section>
 
 <section>
-	<h2>Recieve From a Channel with <code>range</code></h2>
-<pre><code data-trim>
+<h2>Recieve From a Channel with <code>range</code></h2>
+<pre><code class="go" data-trim>
 ch := make(chan int, 10)
 ch <- 1
 ch <- 2
@@ -592,8 +505,8 @@ for n := range ch {
 </section>
 
 <section>
-	<h2>Recieve From a Channel with <code>select</code></h2>
-<pre><code data-trim>
+<h2>Recieve From a Channel with <code>select</code></h2>
+<pre><code class="go" data-trim>
 ch := make(chan int, 10)
 done := make(chan bool)
 ch <- 1
@@ -613,7 +526,7 @@ select {
 
 	<section>
 		<h2>Return a Channel</h2>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 func generate(nums ...int) <-chan int {
 	out := make(chan int)
 	go func() {
@@ -628,7 +541,7 @@ func generate(nums ...int) <-chan int {
 	</section>
 <section>
 	<h2>Pass a Channel</h2>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 func sq(in <-chan int) <-chan int {
     out := make(chan int)
     go func() {
@@ -643,7 +556,7 @@ func sq(in <-chan int) <-chan int {
 	</section>
 <section>
 	<h2>A Pipeline of Channels</h2>
-<pre><code data-trim>
+<pre><code class="go" data-trim>
 func square(in <-chan int) <-chan int {}
 func generate(nums ...int) <-chan int {}
 
@@ -657,71 +570,120 @@ func main() {
 </section>
 </section>
 
+
+			<section>
+				<section>
+					<h2>Common Toolchain, Common Practices</h2>
+					<div>
+						<ul>
+							<li><code>go&nbsp;clean</code></li>
+							<li><code>go&nbsp;get</code></li>
+							<li><code>go&nbsp;fmt</code></li>
+							<li><code>go&nbsp;test</code></li>
+							<li><code>go&nbsp;build</code></li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h2><code>go clean</code></h2>
+					<ul>
+						<li>Removes object files from package source directories.</li>
+					</ul>
+					<pre><code data-trim>
+go clean [packages]
+go clean github.com/goraft/raft
+					</code></pre>
+				</section>
+
 <section>
-	<section>
-		<h2>Extra! HTTP Service</h2>
-	</section>
-	<section>
-		<h2>The Key is an Interface</h2>
-		<pre><code data-trim>
-type Handler interface {
-	ServeHTTP(ResponseWriter, *Request)
-}</code></pre>
-	</section>
-	<section>
-		<h2>Simplest Server</h2>
+	<h2><code>go get</code></h2>
+	<ul>
+		<li>Downloads and installs packages and their dependencies.</li>
+	</ul>
+	<pre><code data-trim>
+go get [-u] [packages]
+go get code.google.com/p/gcfg
+go get -u github.com/goraft/raft
+	</code></pre>
+</section>
+
+
+<section>
+	<h2><code>go fmt</code></h2>
+	<ul>
+		<li>Reformats the packages listed to the golang standard.</li>
+		<li>Many editors run <code>go fmt</code> on save.</li>
+	</ul>
+	<pre><code data-trim>
+go fmt [-n] [-x] [packages]
+	</code></pre>
+</section>
+
+<section>
+	<h2><code>go build</code></h2>
+	<ul>
+		<li>Compiles the packages named by the import paths, along with their dependencies.</li>
+		<li>Does not install the resulting binaries.</li>
+	</ul>
+	<pre><code data-trim>
+go build [-o output] [build flags] [packages]
+go build ./...
+	</code></pre>
+</section>
+
+<section>
+	<h2><code>go test</code></h2>
+	<ul>
+<li>Recompiles each package along with any files with names matching <code>*_test.go</code>.</li>
 <pre><code data-trim>
-package main
-
-import (
-    "fmt"
-    "net/http"
-)
-
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
-
-func main() {
-    http.ListenAndServe(":8080", handler)
-}
+go test [-c] [-i] [build/test flags] [packages] [flags for test binary]
+go test ./...
+go test github.com/goraft/raft
 </code></pre>
-	</section>
-
-	<section>
-		<h2>Introducing ServeMux</h2>
+<li>Prints a summary of test results.
 <pre><code data-trim>
-package main
+ok   archive/tar   0.011s
+FAIL archive/zip   0.022s
+ok   compress/gzip 0.033s
+...
+</pre></code></li>
+<li>Can contain test functions, benchmark functions, and example functions.</li>
+</ul>
+	<p><a href="http://golang.org/pkg/testing/">http://golang.org/pkg/testing/</a>
+</section>
 
-import (
-		"fmt"
-		"net/http"
-)
 
-func handler(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
+<section>
+	<h2><code>go install</code></h2>
+	<ul>
+		<li>Compiles and installs packages and their dependencies.</li>
+	</ul>
+	<pre><code data-trim>
+go install [build flags] [packages]
+go install github.com/crosbymichael/skydock
+	</code></pre>
+</section>
+</section>
 
-func main() {
-		mux := http.NewServeMux()
-		mux.HandleFunc("/hi",handler)
-		mux.Handle("",http.NotFoundHandler())
-		http.ListenAndServe(":8080", mux)
-}
-</code></pre>
-	</section>
-
+<section>
+	<h2>Top Three Hints</h2>
+	<ol>
+		<li class="fragment" data-fragment-index="0">Don't think in traditional objects. Add behavior (interfaces) instead.</li>
+		<li class="fragment" data-fragment-index="1">Try the standard library first.<br>Especially "<a href="http://golang.org/pkg/net/http/">net/http</a>".</li>
+		<li class="fragment" data-fragment-index="2">Learn to love channels.</li>
+	</ol>
 </section>
 
 <section>
 	<h2>Resources</h2>
 	<ul>
-		<li>http://golang.org/doc/effective_go.html</li>
-		<li>http://golang.org/ref/spec</li>
-		<li>http://blog.golang.org/</li>
-		<li>http://www.reddit.com/r/golang</li>
-		<li>http://golang.org/doc/faq</li>
-		<li>https://groups.google.com/forum/#!forum/Golang-nuts</li>
+		<li><a href="http://golang.org/doc/effective_go.html">http://golang.org/doc/effective_go.html</a></li>
+		<li><a href="http://golang.org/ref/spec">http://golang.org/ref/spec</a></li>
+		<li><a href="http://blog.golang.org/">http://blog.golang.org/</a></li>
+		<li><a href="http://www.reddit.com/r/golang">http://www.reddit.com/r/golang</a></li>
+		<li><a href="http://golang.org/doc/faq">http://golang.org/doc/faq</a></li>
+		<li><a href="https://groups.google.com/forum/#!forum/Golang-nuts">https://groups.google.com/forum/#!forum/Golang-nuts</a></li>
 	</ul>
 </section>
 
@@ -761,8 +723,12 @@ func main() {
 		history: true,
 		center: true,
 
-		width: 960,
-    height: 700,
+		width: 1800,
+    height: 1000,
+
+		// Bounds for smallest/largest possible scale to apply to content
+    minScale: 0.2,
+    maxScale: 1.0,
 
 		theme: Reveal.getQueryHash().theme || 'solarized', // available themes are in /css/theme
 		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
