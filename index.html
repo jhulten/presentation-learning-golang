@@ -2,163 +2,168 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
+<meta charset="utf-8"/>
 
-	<title>Learning to Write Go</title>
+<title>Learning to Write Go</title>
 
-	<meta name="description" content="Learning to Write Golang without Repeating My Mistakes">
-	<meta name="author" content="Jeffrey Hulten">
+<meta name="description" content="Learning to Write Golang without Repeating My Mistakes"/>
+<meta name="author" content="Jeffrey Hulten"/>
 
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no"/>
 
-	<link rel="stylesheet" href="css/reveal.min.css">
-	<link rel="stylesheet" href="css/theme/default.css" id="theme">
+<link rel="stylesheet" href="css/reveal.css"/>
+<link rel="stylesheet" href="css/theme/default.css" id="theme"/>
 
-	<!-- For syntax highlighting -->
-	<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- For syntax highlighting -->
+<link rel="stylesheet" href="lib/css/zenburn.css"/>
 
-	<style>
-	.goplay { background-color: rgb(255, 255, 255); width: 900px; height: 550px; max-height: none; max-width: none; }
-	.reveal dt { font-family:Inconsolata,Monospace; font-weight:900; text-align: left; float: left;}
-	.reveal dd { font-weight:normal; text-align: right;}
-	.reveal code { font-family: Courier,Monospace; text-transform:none; letter-spacing: 0; }
-	.reveal blockquote { box-shadow:none; }
-	.reveal pre { box-shadow:none; }
-	.reveal pre code { max-height: 750px; font-size: 36px; line-height: normal; }
-	.reveal section img { border:0px; box-shadow:none; line-height: 120%; }
-	</style>
+<link rel="stylesheet" href="font/roboto_regular_macroman/stylesheet.css"/>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
 
-	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-	<script>
-	if( window.location.search.match( /print-pdf/gi ) ) {
-		var link = document.createElement( 'link' );
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		link.href = 'css/print/pdf.css';
-		document.getElementsByTagName( 'head' )[0].appendChild( link );
-	}
-	</script>
+<style>
+.goplay { background-color: rgb(255, 255, 255); width: 900px; height: 550px; max-height: none; max-width: none; }
+.reveal div { font-family: 'robotoregular', sans-serif; }
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {font-family: 'Oxygen', sans-serif; font-weight: 700;}
+.reveal dt { font-family:Inconsolata,Monospace; font-weight:900; text-align: left; float: left;}
+.reveal dd { font-weight:normal; text-align: right;}
+.reveal code { font-family: Courier,Monospace; text-transform:none; letter-spacing: 0; }
+.reveal blockquote { box-shadow:none; }
+.reveal pre { box-shadow:none; }
+.reveal pre code { max-height: 750px; font-size: 36px; line-height: normal; }
+.reveal section img { border:0px; box-shadow:none; line-height: 120%; }
+</style>
 
-	<!--[if lt IE 9]>
-	<script src="lib/js/html5shiv.js"></script>
-	<![endif]-->
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+  var link = document.createElement( 'link' );
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = 'css/print/pdf.css';
+  document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+</script>
+
+<!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
 </head>
 
 <body>
-	<div class="reveal">
-		<!-- Any section element inside of this container is displayed as a slide -->
-		<div class="slides">
-			<section>
-				<h1>Learning to Write Go</h1>
-				<img src="whitepages.png"/>
-				<h2>Jeffrey Hulten</h2>
-			</section>
-			<section>
-				<h2>Who Am I</h2>
-				<p style="font-weight: bold;">
-					Jeffrey Hulten
-				</p>
-				<p>Software Engineer</p>
-				<p>Whitepages, Inc.
-				</p>
-			</section>
+<div class="reveal">
+  <!-- Any section element inside of this container is displayed as a slide -->
+  <div class="slides">
+    <section>
+      <h1>Learning to Write Go</h1>
+      <img src="whitepages.png" alt="Whitepages Logo"/>
+      <h2>Jeffrey Hulten</h2>
+    </section>
+    <section>
+      <h2>Who Am I</h2>
+      <p style="font-weight: bold;">
+      Jeffrey Hulten
+      </p>
+      <p>Engineering Manager</p>
+      <p>Developer Tools</p>
+      <p>Whitepages, Inc.</p>
+    </section>
 
-			<section>
-				<h2>What I'm Going to Cover</h2>
-				<p>Assuming you know something like Python, Java, Ruby...</p>
-				<ol>
-					<li>Using Packages</li>
-					<li>Types, Structs, and Interfaces</li>
-					<li>The Goroutine</li>
-					<li>Channels</li>
-				</ol>
-			</section>
+    <section>
+      <h2>What I'm Going to Cover</h2>
+      <p>Assuming you know something like Python, Java, Ruby...</p>
+      <ol>
+        <li>Using Packages</li>
+        <li>Types, Structs, and Interfaces</li>
+        <li>The Goroutine</li>
+        <li>Channels</li>
+      </ol>
+    </section>
 
-			<section>
-				<h2>Not For You? Parting Hint...</h2>
-				<p>Google for "golang", not "go".<br>
-					<a href="http://lmgtfy.com/?q=golang">http://lmgtfy.com/?q=golang</a>
-				</p>
-			</section>
+    <section>
+      <h2>Not For You? Parting Hint...</h2>
+      <p>Google for "golang", not "go".<br>
+      <a href="http://lmgtfy.com/?q=golang">http://lmgtfy.com/?q=golang</a>
+      </p>
+    </section>
 
-			<section>
-				<h2>Simplicity</h2>
-				<p>
-					Rich Hickey - Creator of Clojure
-				</p>
-				<a href="http://www.infoq.com/presentations/Simple-Made-Easy">http://www.infoq.com/presentations/Simple-Made-Easy</a><br/>
-				<img src="richhickey.jpeg"/><br/>
-				<blockquote cite="http://www.infoq.com/presentations/Simple-Made-Easy">
-					We program with <b>constructs</b>[...]<br/>
-					but we are in a business of <b>artifacts</b>.
-				</blockquote>
-				<p>Go is a language for concurrency</p>
-			</section>
-			<section>
-				<h2>
-					<span>Hello, Playground!</span>
-				</h2>
+    <section>
+      <h2>Simplicity</h2>
+      <p>
+      Rich Hickey - Creator of Clojure
+      </p>
+      <a href="http://www.infoq.com/presentations/Simple-Made-Easy">http://www.infoq.com/presentations/Simple-Made-Easy</a><br/>
+      <img src="richhickey.jpeg" alt="Photo of Rich Hickey"/><br/>
+      <blockquote cite="http://www.infoq.com/presentations/Simple-Made-Easy">
+        We program with <b>constructs</b>[...]<br/>
+        but we are in a business of <b>artifacts</b>.
+      </blockquote>
+      <p>Go is a language for concurrency</p>
+    </section>
+    <section>
+      <h2>
+        <span>Hello, Playground!</span>
+      </h2>
 
-				<p>
-					<a href="http://play.golang.org/">http://play.golang.org/</a>
-				</p>
+      <p>
+      <a href="http://play.golang.org/">http://play.golang.org/</a>
+      </p>
 
-				<iframe src="http://play.golang.org/" class="goplay"></iframe>
-			</section>
+      <iframe src="http://play.golang.org/" class="goplay"></iframe>
+    </section>
 
-			<section>
-				<pre><code class="go" data-trim>
+    <section>
+      <pre><code class="go" data-trim>
 package main
 
 import "fmt"
 
 func main() {
-	fmt.Println("Hello, playground")
+  fmt.Println("Hello, playground")
 }
-				</code></pre>
-				<section style="top:50px;">
-					<h3>
-						Declare the package for this file
-					</h3>
-				</section>
+      </code></pre>
+      <section style="top:50px;">
+        <h3>
+          Declare the package for this file
+        </h3>
+      </section>
 
-				<section style="top:50px;">
-					<h3>
-						Import the <code>fmt</code> package (stdlib)
-					</h3>
-				</section>
+      <section style="top:50px;">
+        <h3>
+          Import the <code>fmt</code> package (stdlib)
+        </h3>
+      </section>
 
-				<section style="top:50px;">
-					<h3>
-						Declares the <code>main</code> function to execute
-					</h3>
-				</section>
+      <section style="top:50px;">
+        <h3>
+          Declares the <code>main</code> function to execute
+        </h3>
+      </section>
 
-				<section style="top:50px;">
-					<h3>
-						Calls <code>Println</code> from the <code>fmt</code> package
-					</h3>
-				</section>
-			</section>
+      <section style="top:50px;">
+        <h3>
+          Calls <code>Println</code> from the <code>fmt</code> package
+        </h3>
+      </section>
+    </section>
 
 
-			<section>
-				<section>
-					<h2>Using Packages</h2>
-				</section>
+    <section>
+      <section>
+        <h2>Using Packages</h2>
+      </section>
 
-				<section>
-					<h2>Standard Packages</h2>
-					<iframe src="http://play.golang.org/p/ybBDpLBnLd" class="goplay"></iframe>
-				</section>
+      <section>
+        <h2>Standard Packages</h2>
+        <iframe src="http://play.golang.org/p/ybBDpLBnLd" class="goplay"></iframe>
+      </section>
 
-				<section>
-					<h2>External Packages</h2>
-					<pre>
-						<code class="go" data-trim>
+      <section>
+        <h2>External Packages</h2>
+        <pre>
+        <code class="go" data-trim>
 package main
 
 import (
@@ -179,69 +184,73 @@ func main() {
 
   fmt.Println("The name is", cfg.Name)
 }
-						</code>
-					</pre>
-				</section>
+        </code>
+        </pre>
+      </section>
 
-				<section>
-					<h2>Packaging Gimmies and Gotchas</h2>
-					<ul>
-						<li>Does not pin versions</li>
-						<li>Vendoring is recommended</li>
-						<li>Binaries are statically linked</li>
-						<li>NPM/Bundler is insufficent (Go is Different)</li>
-					</ul>
-					<p><a href="http://nathany.com/go-packages/">http://nathany.com/go-packages/</a>
-				</section>
+      <section>
+        <h2>Packaging Gimmies and Gotchas</h2>
+        <ul>
+          <li>Does not pin versions</li>
+          <li>Vendoring is recommended</li>
+          <li>Binaries are statically linked</li>
+          <li>NPM/Bundler is insufficent (Go is Different)</li>
+        </ul>
+        <p><a href="http://nathany.com/go-packages/">http://nathany.com/go-packages/</a>
+      </section>
 
-				<section>
-					<h2>Private vs Public</h2>
-					<pre><code class="go" data-trim>
+      <section>
+        <h2>Private vs Public</h2>
+        <pre><code class="go" data-trim>
 package mypkg
 
 func thisIsPrivate() {}
 func ThisIsPublic() {}
-					</pre></code>
-				</section>
-			</section>
+      </code>
+        </pre>
+      </section>
+    </section>
 
-			<section>
-				<section>
-					<h2>Types</h2>
-					<p>Golang is statically typed</p>
-					<pre>
-						<code class="go" data-trim>
+    <section>
+      <section>
+        <h2>Types</h2>
+        <p>Golang is statically typed</p>
+        <pre>
+            <code class="go" data-trim>
 var I int
 var myString string = "my string"
 fileReader, err := os.Open("/tmp/filename")
 </code>
-<a href="http://golang.org/ref/spec#Variable_declarations">http://golang.org/ref/spec#Variable_declarations</a>
-					</pre>
-				</section>
-<section>
-<h2>Structs</h2>
-<pre><code class="go" data-trim>
+        </pre>
+        <a href="http://golang.org/ref/spec#Variable_declarations">http://golang.org/ref/spec#Variable_declarations</a>
+      </section>
+      <section>
+        <h2>Structs</h2>
+        <pre>
+        <code class="go" data-trim>
 type TinyStruct struct {
-	IsTiny bool
+  IsTiny bool
 }
 
 t1 := TinyStruct{}
 t2 := TinyStruct{true}
 t3 := TinyStruct{IsTiny: false}
 t3.IsTiny
-</code></pre>
-<a href="http://golang.org/ref/spec#Struct_types">http://golang.org/ref/spec#Struct_types</a>
-</section>
-<section>
-<h2>Structs</h2>
-<pre><code class="go" data-trim>
+        </code>
+        </pre>
+        <a href="http://golang.org/ref/spec#Struct_types">http://golang.org/ref/spec#Struct_types</a>
+      </section>
+      <section>
+        <h2>Structs</h2>
+        <pre>
+        <code class="go" data-trim>
 type MyStruct struct {
-	TinyStruct
-	A string
-	b uint32
-	Nested struct {
-		C io.Reader
-	}
+  TinyStruct
+  A string
+  b uint32
+  Nested struct {
+    C io.Reader
+  }
 }
 
 var ms MyStruct
@@ -250,263 +259,183 @@ ms.A = "one"
 ms.IsTiny = true
 
 if ms.TinyStruct.IsTiny {...}
-</code></pre>
-</section>
-<section>
-<h2>Structs</h2>
-<pre><code class="go" data-trim>
+        </code>
+        </pre>
+      </section>
+      <section>
+        <h2>Structs</h2>
+        <pre><code class="go" data-trim>
 type OtherStruct struct {
-	MStruct MyStruct
-	OtherField string
+  MStruct MyStruct
+  OtherField string
 }
 
 os := OtherStruct{MStruct : MyStruct{IsTiny: false}, OtherField : "thing"}
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-	<h2>Functions</h2>
-<pre>
+      <section>
+        <h2>Functions</h2>
+        <pre>
 <code class="go" data-trim>
 func FunctionName(argument string, arg1, arg2 int64) {...}
 func FunctionName(values ...int) error {...}
 func FunctionName()(namedReturn int) {...}
 var f := func() {...}
 </code>
-</pre>
-<a href="http://golang.org/ref/spec#Function_declarations">http://golang.org/ref/spec#Function_declarations</a>
-</section>
+        </pre>
+        <a href="http://golang.org/ref/spec#Function_declarations">http://golang.org/ref/spec#Function_declarations</a>
+      </section>
 
-<section>
-<h2>Interfaces and Methods</h2>
-<div>
-
-</div>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Interfaces and Methods</h2>
+        <pre><code class="go" data-trim>
 type Thinger interface {
-	DoThing() error
+  DoThing() error
 }
 
 func (ms MyStruct)DoThing() error {
-	return nil
+  return nil
 }
 
 func (os *OtherStruct)DoThing() error {
-	return nil
+  return nil
 }
 
 func ProcessThinger(t Thinger) error {
-	return t.DoThing()
+  return t.DoThing()
 }
-</code></pre>
-<a href="http://golang.org/ref/spec#Interface_types">http://golang.org/ref/spec#Interface_types</a><br/>
-<a href="http://golang.org/ref/spec#Method_declarations">http://golang.org/ref/spec#Method_declarations</a>
-				</section>
-<section>
-	<h2>Empty Interface is an Any Type</h2>
-	<iframe src="http://play.golang.org/p/_qxA85gNjW" class="goplay"></iframe>
-</section>
+        </code></pre>
+        <a href="http://golang.org/ref/spec#Interface_types">http://golang.org/ref/spec#Interface_types</a><br/>
+        <a href="http://golang.org/ref/spec#Method_declarations">http://golang.org/ref/spec#Method_declarations</a>
+      </section>
+      <section>
+        <h2>Empty Interface is an Any Type</h2>
+        <iframe src="http://play.golang.org/p/_qxA85gNjW" class="goplay"></iframe>
+      </section>
 
-			</section>
-			<section>
-				<section>
-					<h2><code>RandReader</code> Example</h2>
-					<div>
-						Create a type that meets the io.Reader interface
-						and returns random bytes.
-					</div>
-				</section>
-				<section>
-					<h2><code>io.Reader</code> Interface</h2>
-					<pre>
-						<code data-trim>
-type Reader interface {
-        Read(p []byte) (n int, err error)
-}
-					</code>
-					</pre>
-					<cite><a href="http://golang.org/pkg/io/#Reader">http://golang.org/pkg/io/#Reader</a></cite>
-				</section>
-				<section>
-					<h2><code>RandReader</code> Type</h2>
-					<div>
-						Struct with no public elements
-					</div>
-					<pre>
-						<code class="go" data-trim>
-type RandReader struct {}
-					</code>
-					</pre>
-				</section>
-<section>
-<h2><code>RandReader</code> Type</h2>
-<div>
-	Holds internal state
-</div>
-	<pre>
-		<code class="go" data-trim>
-import "math/rand"
+    </section>
+    <section>
+      <section>
+        <h2>Goroutines</h2>
+      </section>
+      <section>
+        <h2>Sidenote: Concurrency vs Parallelism</h2>
 
-type RandReader struct {
-	r rand.Rand
-}
-	</code>
-	</pre>
-</section>
+        <div>
+          <blockquote cite="http://blog.golang.org/concurrency-is-not-parallelism">
+            Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.
+          </blockquote>
+          <cite>-- Andrew Gerrand</cite>
+        </div>
+        <p> More Information: Rob Pike on Concurrency vs Parallelism<br/>
+        <a href="http://vimeo.com/49718712">http://vimeo.com/49718712</a></p>
+        <aside class="notes">
+          Pike is one of the three co-creators of GoLang
+        </aside>
+      </section>
 
-<section>
-	<h2><code>NewRandReader()</code> Function</h2>
-	<div>
-		Creates a RandReader and initializes it
-	</div>
-	<pre>
-<code class="go" data-trim>
-func NewRandReader() *RandReader {
-	source := rand.NewSource(time.Now().UnixNano())
-	return &RandReader{rand.New(source)}
-}
-</code>
-	</pre>
-</section>
-<section>
-<h2>Attach the <code>Read</code> Function</h2>
-<div>
-	Supplying a <code>Read([]byte) int, error</code> function makes it match the <code>io.Reader</code> interface
-</div>
-<pre><code class="go" data-trim>
-import "encoding/binary"
+      <section>
+        <h2>How to Create a Goroutine</h2>
+        <iframe src="http://play.golang.org/p/g2Z-BR6838" class="goplay"></iframe>
+      </section>
 
-// Contains a bug that does not fill the provided array
-func (r RandReader)Read(p []byte) (n int, err error) {
-	if len(p) < 5 {
-		return nil, errors.New(“byte array too small”)
-	}
-	val := r.Uint32().(uint64)
-	n := binary.PutUvarint(p, val)
-}
-</code></pre>
-</section>
-			</section>
+      <section>
+        <h2>Call a standard function</h2>
+        <pre>
+      <code>go time.Sleep(100 * time.Hours())</code>
+        </pre>
+      </section>
 
-<section>
-	<section>
-		<h2>Goroutines</h2>
-	</section>
-<section>
-	<h2>Sidenote: Concurrency vs Parallelism</h2>
-
-		<div>
-		<blockquote cite="http://blog.golang.org/concurrency-is-not-parallelism">
-			Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.
-		</blockquote>
-		<cite>-- Andrew Gerrand</cite>
-		</div>
-		<p> More Information: Rob Pike on Concurrency vs Parallelism<br/>
-		<a href="http://vimeo.com/49718712">http://vimeo.com/49718712</a></p>
-		<aside class="notes">
-			Pike is one of the three co-creators of GoLang
-		</aside>
-	</section>
-
-	<section>
-		<h2>How to Create a Goroutine</h2>
-		<iframe src="http://play.golang.org/p/g2Z-BR6838" class="goplay"></iframe>
-	</section>
-
-	<section>
-		<h2>Call a standard function</h2>
-		<pre>
-			<code>go time.Sleep(100 * time.Hours())</code>
-		</pre>
-	</section>
-
-	<section>
-		<h2>Call a function variable</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Call a function variable</h2>
+        <pre><code class="go" data-trim>
 f := func() {time.Sleep(100 * time.Hours())}
 go f()
-</code></pre>
-	</section>
+        </code></pre>
+      </section>
 
-<section>
-	<h2>Call an anonymous function</h2>
-<pre>
-	<code class="go" data-trim>
+      <section>
+        <h2>Call an anonymous function</h2>
+        <pre>
+  <code class="go" data-trim>
 go func() {time.Sleep(100 * time.Hours())}()
 </code>
-</pre>
-</section>
+        </pre>
+      </section>
 
-	<section>
-		<h2>Goroutine Gotchas</h2>
-		<ul>
-			<li>Goroutines do not block the main thread from exiting.</li>
-			<li>You must manage concurrent access. See <a href="http://golang.org/pkg/sync/#Mutex"><code>sync.Mutex</code></a></li>
-			<li>There is no one to return a value to. (Use channels.)</li>
-		</ul>
-	</section>
+      <section>
+        <h2>Goroutine Gotchas</h2>
+        <ul>
+          <li>Goroutines do not block the main thread from exiting.</li>
+          <li>You must manage concurrent access. See <a href="http://golang.org/pkg/sync/#Mutex"><code>sync.Mutex</code></a></li>
+          <li>There is no one to return a value to. (Use channels.)</li>
+        </ul>
+      </section>
 
-</section>
+    </section>
 
-<section>
-	<section>
-		<h2>Channels</h2>
-		<ul>
-			<li>A type.</li>
-			<li>A strongly typed, bounded queue for passing data between goroutines.</li>
-			<li>Argument types can include direction (inbound vs. outbound).</li>
-		</ul>
-		<cite>http://blog.golang.org/pipelines</cite>
-	</section>
+    <section>
+      <section>
+        <h2>Channels</h2>
+        <ul>
+          <li>A type.</li>
+          <li>A strongly typed, bounded queue for passing data between goroutines.</li>
+          <li>Argument types can include direction (inbound vs. outbound).</li>
+        </ul>
+        <p>
+        <a href="http://blog.golang.org/pipelines">http://blog.golang.org/pipelines</a>
+        </p>
+      </section>
 
-<section>
-<h2>Make a Channel</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Make a Channel</h2>
+        <pre><code class="go" data-trim>
 var ch chan int
 ch = make(chan int)
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-<h2>Size a Channel</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Size a Channel</h2>
+        <pre><code class="go" data-trim>
 ch := make(chan int, 10)
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-<h2>Send To a Channel</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Send To a Channel</h2>
+        <pre><code class="go" data-trim>
 ch := make(chan int, 1)
 ch <- 1
 ch <- 2
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-<h2>Recieve From a Channel</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Recieve From a Channel</h2>
+        <pre><code class="go" data-trim>
 c := <-ch
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-<h2>Recieve From a Channel with <code>range</code></h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Recieve From a Channel with <code>range</code></h2>
+        <pre><code class="go" data-trim>
 ch := make(chan int, 10)
 ch <- 1
 ch <- 2
 ch <- 3
 ch <- 4
 for n := range ch {
-	fmt.Println(n * n)
+  fmt.Println(n * n)
 }
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-<h2>Recieve From a Channel with <code>select</code></h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Recieve From a Channel with <code>select</code></h2>
+        <pre><code class="go" data-trim>
 ch := make(chan int, 10)
 done := make(chan bool)
 ch <- 1
@@ -515,33 +444,33 @@ done <- true
 ch <- 4
 
 select {
-	case <-done:
-		return
-	case n <- ch:
-		fmt.Println(n * n)
+  case <-done:
+    return
+  case n <- ch:
+    fmt.Println(n * n)
 }
-</code></pre>
-</section>
+        </code></pre>
+      </section>
 
 
-	<section>
-		<h2>Return a Channel</h2>
-<pre><code class="go" data-trim>
+      <section>
+        <h2>Return a Channel</h2>
+        <pre><code class="go" data-trim>
 func generate(nums ...int) <-chan int {
-	out := make(chan int)
-	go func() {
-		for _, n := range nums {
-			out <- n
-		}
-		close(out)
-	}()
-	return out
+  out := make(chan int)
+  go func() {
+    for _, n := range nums {
+      out <- n
+    }
+    close(out)
+  }()
+  return out
 }
-</code></pre>
-	</section>
-<section>
-	<h2>Pass a Channel</h2>
-<pre><code class="go" data-trim>
+        </code></pre>
+      </section>
+      <section>
+        <h2>Pass a Channel</h2>
+        <pre><code class="go" data-trim>
 func sq(in <-chan int) <-chan int {
     out := make(chan int)
     go func() {
@@ -552,203 +481,205 @@ func sq(in <-chan int) <-chan int {
     }()
     return out
 }
-</code></pre>
-	</section>
-<section>
-	<h2>A Pipeline of Channels</h2>
-<pre><code class="go" data-trim>
+        </code></pre>
+      </section>
+      <section>
+        <h2>A Pipeline of Channels</h2>
+        <pre><code class="go" data-trim>
 func square(in <-chan int) <-chan int {}
 func generate(nums ...int) <-chan int {}
 
 func main() {
-	for n := range square( square( generate( 2, 3, 4 ))) {
-		fmt.Println(n)
-	}
+  for n := range square( square( generate( 2, 3, 4 ))) {
+    fmt.Println(n)
+  }
 }
-</code></pre>
+        </code></pre>
 
-</section>
-</section>
+      </section>
+    </section>
 
 
-			<section>
-				<section>
-					<h2>Common Toolchain, Common Practices</h2>
-					<div>
-						<ul>
-							<li><code>go&nbsp;clean</code></li>
-							<li><code>go&nbsp;get</code></li>
-							<li><code>go&nbsp;fmt</code></li>
-							<li><code>go&nbsp;test</code></li>
-							<li><code>go&nbsp;build</code></li>
-						</ul>
-					</div>
-				</section>
+    <section>
+      <section>
+        <h2>Common Toolchain, Common Practices</h2>
+        <div>
+          <ul>
+            <li><code>go&nbsp;clean</code></li>
+            <li><code>go&nbsp;get</code></li>
+            <li><code>go&nbsp;fmt</code></li>
+            <li><code>go&nbsp;test</code></li>
+            <li><code>go&nbsp;build</code></li>
+          </ul>
+        </div>
+      </section>
 
-				<section>
-					<h2><code>go clean</code></h2>
-					<ul>
-						<li>Removes object files from package source directories.</li>
-					</ul>
-					<pre><code data-trim>
+      <section>
+        <h2><code>go clean</code></h2>
+        <ul>
+          <li>Removes object files from package source directories.</li>
+        </ul>
+        <pre><code data-trim>
 go clean [packages]
 go clean github.com/goraft/raft
-					</code></pre>
-				</section>
+        </code></pre>
+      </section>
 
-<section>
-	<h2><code>go get</code></h2>
-	<ul>
-		<li>Downloads and installs packages and their dependencies.</li>
-	</ul>
-	<pre><code data-trim>
+      <section>
+        <h2><code>go get</code></h2>
+        <ul>
+          <li>Downloads and installs packages and their dependencies.</li>
+        </ul>
+        <pre><code data-trim>
 go get [-u] [packages]
 go get code.google.com/p/gcfg
 go get -u github.com/goraft/raft
-	</code></pre>
-</section>
+        </code></pre>
+      </section>
 
 
-<section>
-	<h2><code>go fmt</code></h2>
-	<ul>
-		<li>Reformats the packages listed to the golang standard.</li>
-		<li>Many editors run <code>go fmt</code> on save.</li>
-	</ul>
-	<pre><code data-trim>
+      <section>
+        <h2><code>go fmt</code></h2>
+        <ul>
+          <li>Reformats the packages listed to the golang standard.</li>
+          <li>Many editors run <code>go fmt</code> on save.</li>
+        </ul>
+        <pre><code data-trim>
 go fmt [-n] [-x] [packages]
-	</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-	<h2><code>go build</code></h2>
-	<ul>
-		<li>Compiles the packages named by the import paths, along with their dependencies.</li>
-		<li>Does not install the resulting binaries.</li>
-	</ul>
-	<pre><code data-trim>
+      <section>
+        <h2><code>go build</code></h2>
+        <ul>
+          <li>Compiles the packages named by the import paths, along with their dependencies.</li>
+          <li>Does not install the resulting binaries.</li>
+        </ul>
+        <pre><code data-trim>
 go build [-o output] [build flags] [packages]
 go build ./...
-	</code></pre>
-</section>
+        </code></pre>
+      </section>
 
-<section>
-	<h2><code>go test</code></h2>
-	<ul>
-<li>Recompiles each package along with any files with names matching <code>*_test.go</code>.</li>
-<pre><code data-trim>
+      <section>
+        <h2><code>go test</code></h2>
+        <ul>
+          <li>Recompiles each package along with any files with names matching <code>*_test.go</code>.
+          <pre><code data-trim>
 go test [-c] [-i] [build/test flags] [packages] [flags for test binary]
 go test ./...
 go test github.com/goraft/raft
-</code></pre>
-<li>Prints a summary of test results.
-<pre><code data-trim>
+          </code></pre></li>
+          <li>Prints a summary of test results.
+          <pre>
+          <code data-trim>
 ok   archive/tar   0.011s
 FAIL archive/zip   0.022s
 ok   compress/gzip 0.033s
 ...
-</pre></code></li>
-<li>Can contain test functions, benchmark functions, and example functions.</li>
-</ul>
-	<p><a href="http://golang.org/pkg/testing/">http://golang.org/pkg/testing/</a>
-</section>
+      </code>
+          </pre>
+          </li>
+          <li>Can contain test functions, benchmark functions, and example functions.</li>
+        </ul>
+        <p><a href="http://golang.org/pkg/testing/">http://golang.org/pkg/testing/</a>
+      </section>
 
 
-<section>
-	<h2><code>go install</code></h2>
-	<ul>
-		<li>Compiles and installs packages and their dependencies.</li>
-	</ul>
-	<pre><code data-trim>
+      <section>
+        <h2><code>go install</code></h2>
+        <ul>
+          <li>Compiles and installs packages and their dependencies.</li>
+        </ul>
+        <pre><code data-trim>
 go install [build flags] [packages]
 go install github.com/crosbymichael/skydock
-	</code></pre>
-</section>
-</section>
+        </code></pre>
+      </section>
+    </section>
 
-<section>
-	<h2>Top Three Hints</h2>
-	<ol>
-		<li class="fragment" data-fragment-index="0">Don't think in traditional objects. Add behavior (interfaces) instead.</li>
-		<li class="fragment" data-fragment-index="1">Try the standard library first.<br>Especially "<a href="http://golang.org/pkg/net/http/">net/http</a>".</li>
-		<li class="fragment" data-fragment-index="2">Learn to love channels.</li>
-	</ol>
-</section>
+    <section>
+      <h2>Top Three Hints</h2>
+      <ol>
+        <li class="fragment" data-fragment-index="0">Don't think in traditional objects. Add behavior (interfaces) instead.</li>
+        <li class="fragment" data-fragment-index="1">Try the standard library first.<br>Especially "<a href="http://golang.org/pkg/net/http/">net/http</a>".</li>
+        <li class="fragment" data-fragment-index="2">Learn to love channels.</li>
+      </ol>
+    </section>
 
-<section>
-	<h2>Resources</h2>
-	<ul>
-		<li><a href="http://golang.org/doc/effective_go.html">http://golang.org/doc/effective_go.html</a></li>
-		<li><a href="http://golang.org/ref/spec">http://golang.org/ref/spec</a></li>
-		<li><a href="http://blog.golang.org/">http://blog.golang.org/</a></li>
-		<li><a href="http://www.reddit.com/r/golang">http://www.reddit.com/r/golang</a></li>
-		<li><a href="http://golang.org/doc/faq">http://golang.org/doc/faq</a></li>
-		<li><a href="https://groups.google.com/forum/#!forum/Golang-nuts">https://groups.google.com/forum/#!forum/Golang-nuts</a></li>
-	</ul>
-</section>
+    <section>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="http://golang.org/doc/effective_go.html">http://golang.org/doc/effective_go.html</a></li>
+        <li><a href="http://golang.org/ref/spec">http://golang.org/ref/spec</a></li>
+        <li><a href="http://blog.golang.org/">http://blog.golang.org/</a></li>
+        <li><a href="http://www.reddit.com/r/golang">http://www.reddit.com/r/golang</a></li>
+        <li><a href="http://golang.org/doc/faq">http://golang.org/doc/faq</a></li>
+        <li><a href="https://groups.google.com/forum/#!forum/Golang-nuts">https://groups.google.com/forum/#!forum/Golang-nuts</a></li>
+      </ul>
+    </section>
 
-<section>
-	<h2>Questions?</h2>
-	<p>jhulten@whitepages.com</p>
-	<p>twitter: @jhulten</p>
-	<p>Find me in the Exhibition Hall</p>
-</section>
+    <section>
+      <h2>Questions?</h2>
+      <p>jhulten@whitepages.com</p>
+      <p>twitter: @jhulten</p>
+    </section>
 
-<section>
-	<h2>We are hiring!</h2>
-	<p>
-<img src="whitepages.png"/>
-</p><p>
-	<a href="http://jobvite.com/m?37X1ngwd">http://jobvite.com/m?37X1ngwd</a>
-</p>
-<p>
-<img src="qrcode.png"/>
-</p>
-</section>
+    <section>
+      <h2>We are hiring!</h2>
+      <p>
+      <img src="whitepages.png" alt="Whitepages Logo"/>
+      </p><p>
+      <a href="http://jobvite.com/m?38ZeLgwR">http://jobvite.com/m?38ZeLgwR</a>
+      </p>
+      <p>
+      <img src="qrcode.png" alt="QR Code to Hiring Link"/>
+      </p>
+    </section>
 
-		</div>
+  </div>
 
-	</div>
+</div>
 
-	<script src="lib/js/head.min.js"></script>
-	<script src="js/reveal.min.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
 
-	<script>
+<script>
 
-	// Full list of configuration options available here:
-	// https://github.com/hakimel/reveal.js#configuration
-	Reveal.initialize({
-		controls: true,
-		progress: true,
-		history: true,
-		center: true,
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+controls: true,
+progress: true,
+history: true,
+center: true,
 
-		width: 1800,
-    height: 1000,
+width: 1800,
+height: 1000,
 
-		// Bounds for smallest/largest possible scale to apply to content
-    minScale: 0.2,
-    maxScale: 1.0,
+// Bounds for smallest/largest possible scale to apply to content
+minScale: 0.2,
+maxScale: 1.0,
 
-		theme: Reveal.getQueryHash().theme || 'solarized', // available themes are in /css/theme
-		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+theme: Reveal.getQueryHash().theme || 'solarized', // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-		// Parallax scrolling
-		// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-		// parallaxBackgroundSize: '2100px 900px',
+// Parallax scrolling
+// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+// parallaxBackgroundSize: '2100px 900px',
 
-		// Optional libraries used to extend on reveal.js
-		dependencies: [
-		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-		{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-		]
-	});
+// Optional libraries used to extend on reveal.js
+dependencies: [
+{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
 
-	</script>
+</script>
 
 </body>
 </html>
