@@ -343,14 +343,14 @@ func ProcessThinger(t Thinger) error {
       <section>
         <h2>Call a standard function</h2>
         <pre>
-      <code>go time.Sleep(100 * time.Hours())</code>
+      <code>go time.Sleep(100 * time.Hour)</code>
         </pre>
       </section>
 
       <section>
         <h2>Call a function variable</h2>
         <pre><code class="go" data-trim>
-f := func() {time.Sleep(100 * time.Hours())}
+f := func() {time.Sleep(100 * time.Hour)}
 go f()
         </code></pre>
       </section>
