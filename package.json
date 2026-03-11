@@ -18,24 +18,27 @@
     "url": "git://github.com/hakimel/reveal.js.git"
   },
   "engines": {
-    "node": "~0.8.0"
+    "node": ">=14.0.0"
   },
   "dependencies": {
-    "underscore": "~1.5.1",
-    "express": ">=3.11.0",
-    "mustache": "~2.2.1",
-    "socket.io": "~0.9.13"
+    "underscore": "^1.13.8",
+    "express": "^5.2.1",
+    "mustache": "^4.2.0",
+    "socket.io": "^4.8.3"
   },
   "devDependencies": {
-    "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-cssmin": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-sass": "~0.5.0",
-    "grunt-contrib-connect": "~0.4.1",
-    "grunt-zip": "~0.7.0",
-    "grunt": "~0.4.0"
+    "grunt-contrib-qunit": "^10.1.1",
+    "grunt-contrib-jshint": "^3.2.0",
+    "grunt-contrib-cssmin": "^5.0.0",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-contrib-sass": "^2.0.0",
+    "grunt-contrib-connect": "^5.0.1",
+    "grunt-zip": "^1.0.0",
+    "grunt": "^1.6.1"
+  },
+  "overrides": {
+    "minimatch": "^3.1.5"
   },
   "licenses": [
     {
