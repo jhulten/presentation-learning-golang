@@ -6,7 +6,8 @@
   "subdomain": "revealjs",
   "scripts": {
     "test": "grunt test",
-    "start": ""
+    "start": "",
+    "postinstall": "socket patch apply --silent --ecosystems npm"
   },
   "author": {
     "name": "Hakim El Hattab",
